@@ -19,9 +19,14 @@
 <script setup>
 import { ref } from 'vue';
 import {useToast} from 'vue-toastification'
+
 const toast = useToast()
+
 const text = ref('');
+
 const amount = ref('');
+const emit = defineEmits(['addtransaction'])
+
 const onSubmit = () => {
 
     if(!text.value || !amount.value){
@@ -30,11 +35,16 @@ const onSubmit = () => {
     }
 
     const transactionData = {
-        id: Math.floor(Math.random() * 100000000),
+        id:  Math.floor(Math.random() * 100000000),
         text: text.value,
         amount: parseFloat(amount.value)
     }
 
     emit("addtransaction", transactionData)
+    
+    text.value = ''
+    amount.value = ''
+
+
 }
 </script>
